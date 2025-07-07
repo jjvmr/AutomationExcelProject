@@ -37,7 +37,7 @@ for mine_row in range(5, mine_list.max_row + 1):
     if production < 1000:
         production_under_10[mine_company] = int(production)
 
-    # value for new info per mining company
+    # 4. value for new info per mining company
     if production != 0:
         productivity_info = production / labour_hours
     else:
