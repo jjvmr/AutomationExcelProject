@@ -14,26 +14,33 @@ for mine_row in range(5, mine_list.max_row + 1):
     production = mine_list.cell(mine_row, 15).value
     labour_hours = mine_list.cell(mine_row, 17).value
     mine_company = mine_list.cell(mine_row, 4).value
+    productivity_info = mine_list.cell(mine_row, 18)
 
-    # calculation of number of mining companies per region
+    # 1. calculation of number of mining companies per region
     if supplier_region in mines_per_supplier_region:
         current_num_mines = mines_per_supplier_region.get(supplier_region)     # getting value of a key
         mines_per_supplier_region[supplier_region] = current_num_mines + 1     # setting value of a key
     else:
         mines_per_supplier_region[supplier_region] = 1
 
-
-    # calculation total value of labour productivity per region (production per labour hours)
+    # 2. calculation total value of labour productivity per region (production per labour hours)
     # dividing total production value by labour hours
     if supplier_region in total_productivity_per_region:
         current_total_value = total_productivity_per_region.get(supplier_region)
-        total_productivity_per_region[supplier_region] = current_total_value + (production / labour_hours)
+        total_productivity_per_region[supplier_region] = int(current_total_value + (production / labour_hours))
     elif production == 0:
-        total_productivity_per_region[supplier_region] = production + labour_hours
+        total_productivity_per_region[supplier_region] = int(production + labour_hours)
     else:
-        total_productivity_per_region[supplier_region] = production / labour_hours
+        total_productivity_per_region[supplier_region] = int(production / labour_hours)
 
-
-    # logic with productivity less than 10
+    # 3. logic with productivity less than 10
     if production < 1000:
         production_under_10[mine_company] = int(production)
+
+    # value for new info per mining company
+    if production != 0:
+        productivity_info = production / labour_hours
+    else:
+        productivity_info = production + labour_hours
+
+inv_file.save("coal_with_productivity.xlsx")
