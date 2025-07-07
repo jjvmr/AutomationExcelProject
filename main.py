@@ -5,6 +5,7 @@ mine_list = inv_file['Hist_Coal_Prod']
 
 mines_per_supplier_region = {}
 total_productivity_per_region = {}
+production_under_10 = {}
 
 
 # Listing each respective mine company with their respective Supplier Region
@@ -12,6 +13,7 @@ for mine_row in range(5, mine_list.max_row + 1):
     supplier_region = mine_list.cell(mine_row, 14).value
     production = mine_list.cell(mine_row, 15).value
     labour_hours = mine_list.cell(mine_row, 17).value
+    mine_company = mine_list.cell(mine_row, 4).value
 
     # calculation of number of mining companies per region
     if supplier_region in mines_per_supplier_region:
@@ -30,3 +32,8 @@ for mine_row in range(5, mine_list.max_row + 1):
         total_productivity_per_region[supplier_region] = production + labour_hours
     else:
         total_productivity_per_region[supplier_region] = production / labour_hours
+
+
+    # logic with productivity less than 10
+    if production < 1000:
+        production_under_10[mine_company] = int(production)
