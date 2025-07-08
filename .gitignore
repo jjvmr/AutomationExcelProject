@@ -1,4 +1,7 @@
 /.venv/
-coalpublic2013.xlsx
+
+#This file is public as it was found on https://www.w3resource.com/python-exercises/pandas/excel/index.php
+# coalpublic2013.xlsx
+
+# File created by program
 coal_with_productivity.xlsx
-*.xlsx
